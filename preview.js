@@ -103,31 +103,28 @@ nav.parentElement.insertBefore(preview, nav.nextSibling);
 //execute this code whenever the title input field changes
 $( "#EN_title" ).on("input", function() {
 	
+	//change the preview's title to what's in the title input field
+	$( "#pTitle" ).html( $("#EN_title")[0].value + Pencil);
+	
 	//check if the title input field is empty
-	if ($( "#pTitle" ).html() === Pencil){
+	if ($( "#pTitle" ).html().trim() === Pencil){
 		
 		//if it's empty, change it to a placeholder title
 		$( "#pTitle" ).html('Lorem Ipsum' + Pencil);
-	}
-	else{
-	
-		//if it's not, change the preview's title to what's in the title input field
-		$( "#pTitle" ).html( $("#EN_title")[0].value + Pencil);
 	}
 });
 
 //execute this code whenever the content input field changes
 $("#EN_body").on('input', function() {
 
+
+	//change the preview's title to what's in the title input field, eliminate un-allowed tags (using regex), replace newline chars with <br \> tags and then correct the spacing to match the live versions.
+    $( "#pBody" ).html( $("#EN_body")[0].value.replace(/<^(?!b|ul|ol|li|i)[^>]*>/gm, "").replace('\n',"<br />").replace("<ul>", "<ul><br />").replace("<ol>", "<ol><br />").replace("</ul>", "</ul><br />").replace("</ol>", "</ol><br />"));
+    
     //check if the title input field is empty
-    if ( $( "#pBody" ).html() === ""){
+    if ( $( "#pBody" ).html().trim() === ""){
     
     	//if it's empty, change it to a placeholder text
     	$( "#pBody" ).html(lorem);
-    }
-    else{
-    
-    //if it's not, change the preview's title to what's in the title input field, eliminate un-allowed tags (using regex), replace newline chars with <br \> tags and then correct the spacing to match the live versions.
-    $( "#pBody" ).html( $("#EN_body")[0].value.replace(/<^(?!b|ul|ol|li|i)[^>]*>/gm, "").replace('\n',"<br />").replace("<ul>", "<ul><br />").replace("<ol>", "<ol><br />").replace("</ul>", "</ul><br />").replace("</ol>", "</ol><br />"));
     }
 });
