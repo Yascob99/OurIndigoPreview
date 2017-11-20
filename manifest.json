@@ -1,0 +1,18 @@
+{
+"manifest_version": 2,
+
+"name": "OurIndigo Preview",
+"description": "Generates a live preview for your OurIndigo post. Currently cannot preview images and polls.",
+"version": "1.0.0",
+"content_scripts" : [{
+    "js": ["jquery.min.js", "moment.min.js", "preview.js"],
+    "matches": ["*://discuss.ourindigo.ca/create.php", "*://discuss.ourindigo.ca/create.php?*"]
+} ],
+"browser_action": {
+"default_icon": "icon.png",
+"default_title": "OurIndigo Preview"
+},
+"permissions": ["activeTab", "*://discuss.ourindigo.ca/create.php", "webNavigation"],
+"web_accessible_resources": []
+
+}
