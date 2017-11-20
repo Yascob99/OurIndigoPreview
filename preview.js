@@ -81,8 +81,8 @@ if ($("#EN_body")[0].value.replace('\n',"<br />") === ""){
 }
 else{
 
-	//if it's and edit, load the current content into the preview
-	body.innerHTML = $("#EN_body")[0].value.replace('\n',"<br />");
+	//if it's and edit, load the current content into the preview, eliminate un-allowed tags (using regex), replace newline chars with <br \> tags and then correct the spacing to match the live versions.
+	body.innerHTML = $("#EN_body")[0].value.replace(/<^(?!b|ul|ol|li|i)[^>]*>/gm, "").replace(/\r?\n|\r/g ,"<br />").replace("<ul>", "<ul><br />").replace("<ol>", "<ol><br />").replace("</ul>", "</ul><br />").replace("</ol>", "</ol><br />");
 }
 
 //add all of parts of the header into the content of the preview
@@ -118,10 +118,11 @@ $( "#EN_title" ).on("input", function() {
 $("#EN_body").on('input', function() {
 
 
-	//change the preview's title to what's in the title input field, eliminate un-allowed tags (using regex), replace newline chars with <br \> tags and then correct the spacing to match the live versions.
-    $( "#pBody" ).html( $("#EN_body")[0].value.replace(/<^(?!b|ul|ol|li|i)[^>]*>/gm, "").replace('\n',"<br />").replace("<ul>", "<ul><br />").replace("<ol>", "<ol><br />").replace("</ul>", "</ul><br />").replace("</ol>", "</ol><br />"));
+	//change the preview's body to what's in the title input field, eliminate un-allowed tags (using regex), replace newline chars with <br \> tags and then correct the spacing to match the live versions.
+    $( "#pBody" ).html( $("#EN_body")[0].value.replace(/<^(?!b|ul|ol|li|i)[^>]*>/gm, "").replace(/\r?\n|\r/g ,"<br />").replace("<ul>", "<ul><br />").replace("<ol>", "<ol><br />").replace("</ul>", "</ul><br />").replace("</ol>", "</ol><br />"));
+    console.log($( "#pBody" ).html());
     
-    //check if the title input field is empty
+    //check if the body input field is empty
     if ( $( "#pBody" ).html().trim() === ""){
     
     	//if it's empty, change it to a placeholder text
